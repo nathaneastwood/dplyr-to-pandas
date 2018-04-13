@@ -1,0 +1,55 @@
+---
+title: "dplyr vs. pandas"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = NA,
+  warning = FALSE,
+  message = FALSE
+)
+library(reticulate)
+Sys.setenv(RETICULATE_PYTHON = "/usr/local/opt/python3/libexec/bin/")
+```
+
+## Selecting Columns {.tabset}
+
+### dplyr
+
+Selecting specific columns:
+
+```{r}
+library(dplyr)
+mtcars <- read.csv("./mtcars.csv")
+mtcars %>% 
+  select(mpg, disp)
+```
+
+Selecting a sequence of columns:
+
+```{r}
+mtcars %>% 
+  select(mpg:disp)
+```
+
+### pandas
+
+Selecting specific columns:
+
+```{python}
+import pandas as pd
+from pydataset import data
+
+mtcars = data('mtcars')
+
+print(mtcars[['mpg', 'disp']])
+```
+
+Selecting a sequence of columns:
+
+```{python}
+print(mtcars.loc[:, 'mpg':'disp'])
+```
